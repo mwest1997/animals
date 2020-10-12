@@ -1,6 +1,9 @@
 package edu.cnm.deepdive.animals.controller;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -11,15 +14,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import edu.cnm.deepdive.animals.viewmodel.AnimalViewModel;
 import edu.cnm.deepdive.animals.R;
 import edu.cnm.deepdive.animals.model.Animal;
+import edu.cnm.deepdive.animals.viewmodel.AnimalViewModel;
 import java.util.List;
 import java.util.Objects;
 
@@ -29,14 +30,18 @@ public class ImageFragment extends Fragment implements OnItemSelectedListener {
   private AnimalViewModel animalViewModel;
   private Spinner spinner;
   private List<Animal> animals;
+  private Toolbar toolbar;
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
     View root = inflater.inflate(R.layout.fragment_image, container, false);
     setupWebView(root);
+    toolbar = root.findViewById(R.id.toolbar);
+    toolbar.setTitle(R.string.app_name);
     spinner = root.findViewById(R.id.animals_spinner);
     spinner.setOnItemSelectedListener(this);
+    ((MainActivity) getActivity()).setSupportActionBar(toolbar);
     return root;
   }
 
